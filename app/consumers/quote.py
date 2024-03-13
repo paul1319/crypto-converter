@@ -33,11 +33,10 @@ class QuoteConsumer:
                 done, pending = await asyncio.wait({sleep, wait_shutdown}, return_when=asyncio.FIRST_COMPLETED)
                 if wait_shutdown in done:
                     sleep.cancel()
+                    self._is_shutdown.set()
                     break
                 if sleep in done:
                     wait_shutdown.cancel()
-
-                # await asyncio.sleep(self._settings.update_quotes_interval_secs)
             except Exception as e:
                 logger.exception("QuoteConsumer crashed:", e)
                 await asyncio.sleep(3)
