@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.api.quotes.endpoinst import router as quotes_router
+from app.api.quotes.endpoints import router as quotes_router
 
 API_V1_STR = "/api/v1"
 
