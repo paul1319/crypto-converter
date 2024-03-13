@@ -19,7 +19,7 @@ class GetConversionView:
             if timestamp is None:
                 timestamp, rate = await self._get_quote(from_currency=from_currency, to_currency=to_currency)
             else:
-                timestamp, rate = await self.get_quote_timestamp(
+                timestamp, rate = await self._get_quote_timestamp(
                     from_currency=from_currency, to_currency=to_currency, timestamp=timestamp
                 )
 
@@ -42,7 +42,7 @@ class GetConversionView:
             raise QuotesOutdatedAppError
         return timestamp, rate
 
-    async def get_quote_timestamp(self, from_currency: str, to_currency: str, timestamp: int) -> tuple[int, float]:
+    async def _get_quote_timestamp(self, from_currency: str, to_currency: str, timestamp: int) -> tuple[int, float]:
         ts = self._uow.session.ts()
         from_time = timestamp - self._settings.quote_outdated_secs * 1000
         try:
