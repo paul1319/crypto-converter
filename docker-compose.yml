@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      target: dev
+    entrypoint: [ "python", "run.py", "api" ]
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/usr/src/app/
+    depends_on:
+      - redis
+    networks:
+      - service-network
+
+  quote-consumer:
+    build:
+      context: .
+      target: dev
+    entrypoint: [ "python", "run.py", "quote-consumer" ]
+    volumes:
+      - .:/usr/src/app/
+    depends_on:
+      - redis
+    networks:
+      - service-network
+
+  redis:
+    image: redis/redis-stack-server:latest
+    networks:
+      - service-network
+    ports:
+      - "6379:6379"
+
+networks:
+  service-network:
+    driver: bridge
