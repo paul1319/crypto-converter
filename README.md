@@ -28,7 +28,8 @@ The .env file is in the project `/app` directory with necessary configurations.
     ```shell
     docker-compose up
     ```
-   This will start the Currency Conversion API and Quote Consumer.
+    This will start the Currency Conversion API and Quote Consumer.
+    **OpenAPI** url: ``http://<API_HOST>:<API_PORT>/docs``
 
 ## Usage
 * To convert cryptocurrency, send a GET request to the Currency Conversion API with the desired amount and currencies.
